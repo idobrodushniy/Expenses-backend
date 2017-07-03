@@ -1,0 +1,6 @@
+Django
+psycopg2
+djangorestframework
+django_filters
+djangorestframework-filters
+httpie
