@@ -1,0 +1,16 @@
+                  List of relations
+ Schema |            Name            | Type  | Owner 
+--------+----------------------------+-------+-------
+ public | app1_expenses              | table | ilia
+ public | auth_group                 | table | ilia
+ public | auth_group_permissions     | table | ilia
+ public | auth_permission            | table | ilia
+ public | auth_user                  | table | ilia
+ public | auth_user_groups           | table | ilia
+ public | auth_user_user_permissions | table | ilia
+ public | django_admin_log           | table | ilia
+ public | django_content_type        | table | ilia
+ public | django_migrations          | table | ilia
+ public | django_session             | table | ilia
+(11 rows)
+

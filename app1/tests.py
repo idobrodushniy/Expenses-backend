@@ -13,10 +13,10 @@ class ExpensesTestCase(APITestCase):
     exp = '/expenses/'
     exp_item = '/expenses/{}/'
 
-
     def setUp(self):
         Group.objects.create(name='Manager')
         Group.objects.create(name='Native User')
+        Group.objects.create(name='Admin')
         self.native_user = User.objects.create_user(username='native_user_expenses',
                                                     email='lsdgkdgf@gmail.com',
                                                     password='fdlkg234')
@@ -30,8 +30,12 @@ class ExpensesTestCase(APITestCase):
         self.admin_user = User.objects.create_superuser(username='admin_user_expenses',
                                                         email='idsafd@gmail.com',
                                                         password='ras21dgl4')
+        self.admin_user.groups.add(Group.objects.get(name='Admin'))
 
-        self.admin_native_users_list = [self.admin_user, self.native_user]
+        self.other_native_user = User.objects.create_user(username='native_user_expenses_2',
+                                                    email='lsdgkfgrtrtrtewdgf@gmail.com',
+                                                    password='fdlkg234')
+        self.other_native_user.groups.add(Group.objects.get(name='Native User'))
 
     def test_native_user_expenses_permission_retrieve(self):
         self.client.force_login(self.native_user)
@@ -59,25 +63,40 @@ class ExpensesTestCase(APITestCase):
         self.client.force_login(self.manager_user)
         self.assertEqual(self.client.get(self.exp).status_code, status.HTTP_403_FORBIDDEN)
 
-
     def test_manager_expenses_permission_create(self):
         self.client.force_login(self.manager_user)
-        action = self.client.post(self.exp, {"cost":"23","text":"fgdgdfgdfgd"})
+        action = self.client.post(self.exp, {"cost": "23", "text": "fgdgdfgdfgd"})
         self.assertEqual(action.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_admin_expenses_permission_create(self):
         self.client.force_login(self.admin_user)
-        action = self.client.post(self.exp, {"cost":"23","text":"fgdgdfgdfgd"})
+        action = self.client.post(self.exp, {"cost": "23", "text": "fgdgdfgdfgd", "owner":self.admin_user.id})
         self.assertEqual(action.status_code, status.HTTP_201_CREATED)
 
     def test_native_user_expenses_permission_create(self):
         self.client.force_login(self.native_user)
-        action = self.client.post(self.exp, {"cost":"23","text":"fgdgdfgdfgd"})
+        action = self.client.post(self.exp, {"cost": "23", "text": "fgdgdfgdfgd", "owner":self.native_user.id})
         self.assertEqual(action.status_code, status.HTTP_201_CREATED)
 
     def test_admin_native_users_expenses_permission_invalid_data_create(self):
-        for i in self.admin_native_users_list:
+        for i in [self.admin_user, self.native_user]:
             self.client.force_login(i)
-            action = self.client.post(self.exp, {"cost":"fgdlkgdfd", "text":"sgdfgdfg"})
+            action = self.client.post(self.exp, {"cost": "fgdlkgdfd", "text": "sgdfgdfg"})
             self.assertEqual(action.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_permission_to_create_for_manager(self):
+        self.client.force_login(self.admin_user)
+        action = self.client.post(self.exp, {"cost":"14.11", "text":"qwe", "owner": self.manager_user.id})
+        self.assertEqual(action.status_code, status.HTTP_406_NOT_ACCEPTABLE)
+
+    def test_admin_permission_to_create_expenses_for_others(self):
+        self.client.force_login(self.admin_user)
+        action = self.client.post(self.exp, {"cost":"14.11", "text":"qwe", "owner": self.native_user.id})
+        self.assertEqual(action.status_code, status.HTTP_201_CREATED)
+
+    def test_attempt_to_create_expenses_for_others_by_native_user(self):
+        self.client.force_login(self.native_user)
+        action = self.client.post(self.exp, {"cost":"14.11", "text":"qwe", "owner": self.other_native_user.id})
+        self.assertEqual(action.status_code, status.HTTP_206_PARTIAL_CONTENT)
+
 

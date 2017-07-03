@@ -1,11 +1,14 @@
 from django.db import models
 from django.utils import timezone
+from datetime import date
+
 # Create your models here.
+
 class Expenses(models.Model):
     cost = models.FloatField(null=False)
     text = models.CharField(null=False, max_length=150)
-    date = models.DateField(auto_now=True)
-    time = models.TimeField(auto_now=True)
+    date = models.DateField(default=date.today)
+    time = models.TimeField(null=True,blank=True,default=timezone.now().time())
     owner = models.ForeignKey('auth.User', related_name='expenses',
                               on_delete=models.CASCADE)
     def __str__(self):
