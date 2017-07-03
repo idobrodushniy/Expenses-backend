@@ -37,6 +37,7 @@ class ExpensesViewSet(viewsets.ModelViewSet):
             serializer.save()
         else:
             if self.request.user != serializer.validated_data['owner']:
+                serializer.save(owner=self.request.user)
                 raise PartialContent()
 
 
