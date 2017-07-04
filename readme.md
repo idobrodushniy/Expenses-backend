@@ -1,21 +1,20 @@
-To start the project you must have python3 and  docker-compose on your computer:
+To start the project you must have python3 and  postgres on your computer:
 
-1. Move to the project directory and migrate all the project migrations with the help of commands -
+1.Install important packages via command :
 ```
-docker-compose run web python manage.py makemigrations
+pip3 install requirements.txt
 ```
+2.Create database and user in postgres, which is described in database.txt file
+
+3.To initialize database IMPORTANT data:
 ```
-docker-compose run web python manage.py migrate
+python manage.py loaddata groups.json
 ```
-2. Than you have to initialize your database an important data:
+4.Create superuser:
 ```
-docker-compose run web python manage.py loaddata groups.json
+python manage.py createsuperuser
 ```
-3. Please, create a superuser for administration:
+5.Start the project via command:
 ```
-docker-compose run web python manage.py createsuperuser
-```
-4. Run the project via the command :
-```
-docker-compose up
+python manage.py runserver
 ```
