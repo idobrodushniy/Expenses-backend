@@ -1,11 +1,9 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework.reverse import reverse
-from rest_framework.exceptions import NotAcceptable
+from rest_framework.exceptions import NotAcceptable, PermissionDenied
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from app1.serializers import ExpensesSerializer, UserSerializer
@@ -48,7 +46,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         QSET = self.request.user.groups.all()
-        if self.request.user.groups.filter(name='Admin').exists() or self.request.user.is_superuser:
+        if self.request.user.is_anonymous:
+            raise PermissionDenied('You are not authanticated user!')
+        elif self.request.user.groups.filter(name='Admin').exists() or self.request.user.is_superuser:
             native_users = Group.objects.get(name='Native User').user_set.all()
             this_user = User.objects.filter(pk=self.request.user.pk)
             managers = Group.objects.get(name='Manager').user_set.all()
@@ -62,8 +62,12 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         if not self.request.user.groups.filter(name='Admin').exists() and \
-                not self.request.user.groups.filter(name='Manager').exists():
+                not self.request.user.groups.filter(name='Manager').exists() and \
+                not self.request.user.is_superuser:
             serializer.save(groups=['{0}'.format(Group.objects.get(name='Native User').pk)])
+        elif str(Group.objects.get(name='Admin').id) in [self.request.data.get('groups')] and not \
+                (self.request.user.groups.filter(name='Admin').exists() or self.request.user.is_superuser):
+            raise PermissionDenied("You can't make someone Admin!")
         else:
             serializer.save()
 

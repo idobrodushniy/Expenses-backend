@@ -23,11 +23,15 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self,instance,validated_data):
-        if instance.password != validated_data['password']:
-            instance.set_password(validated_data['password'])
-        instance.username = validated_data['username']
-        instance.email = validated_data['email']
-        instance.groups = validated_data['groups']
+        if validated_data.get('password') != None and validated_data.get('password') != "":
+            if instance.password != validated_data['password']:
+                instance.set_password(validated_data['password'])
+        if validated_data.get('username') != None and validated_data.get('username') != "":
+            instance.username = validated_data['username']
+        if validated_data.get('email') != None and validated_data.get('email') != "":
+            instance.email = validated_data['email']
+        if validated_data.get('groups') != None and validated_data.get('groups') != []:
+            instance.groups = validated_data['groups']
         instance.save()
         return instance
 
