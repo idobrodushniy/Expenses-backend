@@ -1,6 +1,6 @@
 Django
 psycopg2
 djangorestframework
-django_filters
-djangorestframework-filters
+django-filters
+djangorestframework_filters
 httpie

@@ -1,35 +1,26 @@
 from rest_framework import permissions
-from app1.models import Expenses
-from django.core.exceptions import PermissionDenied
-from django.contrib.auth.models import User, Group
 
 
- 
+class CRUDUserPermission(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.user.is_anonymous:
+            return False
+        else:
+            return True
 
+class ExpensesPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name='Admin').exists() or \
+                request.user.groups.filter(name='Native User').exists() or \
+                request.user.is_superuser:
+            return True
+        else:
+            return False
 
-
-def has_permission_for_expenses(self):
-    QSET = self.request.user.groups.all()
-    if Group.objects.get(name='Native User') in QSET:
-        return True
-    else:
-        return False
-
-
-def has_not_safe_permission_for_expenses(self):
-    QSET = self.request.user.groups.all()
-    if Group.objects.get(name='Native User') in QSET:
-        return True
-    else:
-        return False
-
-
-def has_permission_for_users(self):
-    QSET = self.request.user.groups.all()
-    if Group.objects.get(name='Manager') in QSET:
-        return User.objects.all()
-    elif (Group.objects.get(name='Native User') in QSET) and (len(QSET) == 1):
-        return User.objects.filter(pk=self.request.user.pk)
-    else:
-        raise PermissionDenied()
-
+    def has_object_permission(self, request, view, obj):
+        if request.user.groups.filter(name='Admin').exists() or \
+                request.user.groups.filter(name='Native User').exists() or \
+                request.user.is_superuser:
+            return True
+        else:
+            return False
