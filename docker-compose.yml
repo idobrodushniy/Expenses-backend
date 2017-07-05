@@ -1,0 +1,20 @@
+db:
+  image: postgres:9.6
+  environment:
+    - POSTGRES_USER=expenses
+    - POSTGRES_PASSWORD=1Petrov1
+  volumes:
+    - ./:/web
+django:
+  image: adolgarev/python2:1473852567
+  volumes:
+    - ./:/web
+  links:
+    - db:db
+  expose:
+    - "9000"
+  ports:
+    - "9000:9000"
+  environment:
+    - DJANGO_SETTINGS_MODULE=expenses.settings
+  command: /bin/bash -c "cd /web && pip install -r requirements.txt && exec invoke run_dev"
