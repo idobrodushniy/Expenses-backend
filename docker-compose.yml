@@ -9,6 +9,7 @@ django:
   image: adolgarev/python2:1473852567
   volumes:
     - ./:/web
+  working_dir: /web
   links:
     - db:db
   expose:
@@ -17,4 +18,4 @@ django:
     - "9000:9000"
   environment:
     - DJANGO_SETTINGS_MODULE=expenses.settings
-  command: /bin/bash -c "cd /web && pip install -r requirements.txt && exec invoke run_dev"
+  command: /bin/bash -c "pip install -r requirements.txt && exec invoke run_dev"

@@ -26,6 +26,8 @@ class ExpensesViewSet(viewsets.ModelViewSet):
             return Expenses.objects.filter(owner=self.request.user)
 
     def perform_create(self, serializer):
+        if serializer.validated_data['owner'] == None or serializer.validated_data['owner'] == '':
+            serializer.validated_data['owner'] = self.request.user
         groups = serializer.validated_data['owner'].groups.all()
         if (Group.objects.get(name='Manager') in groups) and (len(groups) == 1) \
                 and (self.request.user.groups.filter(name='Admin').exists() or self.request.user.is_superuser):
@@ -33,10 +35,7 @@ class ExpensesViewSet(viewsets.ModelViewSet):
         elif self.request.user.groups.filter(name='Admin') or self.request.user.is_superuser:
             serializer.save()
         else:
-            if self.request.user != serializer.validated_data['owner']:
-                serializer.save(owner=self.request.user)
-                raise PermissionDenied(
-                    "You can't create expenses for other users. By default it was set your username for 'owner' field!")
+            serializer.save()
 
 
 class UserViewSet(viewsets.ModelViewSet):

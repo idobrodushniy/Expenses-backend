@@ -6,8 +6,8 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    url(r'^api-auth/', include('rest_framework.urls',
-                               namespace='rest_framework')),
+    url(r'^auth/', include('rest_auth.urls',
+                           namespace='rest_auth')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('expenses_app.urls'))
 ]

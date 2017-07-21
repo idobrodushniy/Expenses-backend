@@ -227,3 +227,4 @@ class UserTestCase(APITestCase):
         patchaction = self.client.patch(self.users_item.format(other_manager_user.json()['id']),
                                         {"groups": [str(Group.objects.get(name='Admin').id)]})
         self.assertEqual(patchaction.status_code, status.HTTP_403_FORBIDDEN)
+

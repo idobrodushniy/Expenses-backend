@@ -8,7 +8,7 @@ class Expenses(models.Model):
     text = models.CharField(null=False, max_length=150)
     date = models.DateField(default=date.today, blank=True, null=True)
     time = models.TimeField(null=True, blank=True)
-    owner = models.ForeignKey('auth.User', related_name='expenses',
+    owner = models.ForeignKey('auth.User',null=True,blank=True, related_name='expenses',
                               on_delete=models.CASCADE)
 
     def __str__(self):

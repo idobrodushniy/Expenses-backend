@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'expenses_app.apps.Expenses_AppConfig',
+    'rest_auth',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,27 +74,27 @@ WSGI_APPLICATION = 'expenses.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'expenses',
-#         'USER': 'ilia',
-#         'PASSWORD': '1Balance1',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'expenses',
-        'USER': 'expenses',
-        'PASSWORD': '1Petrov1',
-        'HOST': 'db',
-        'PORT': '5432',
+        'USER': 'ilia',
+        'PASSWORD': '1Balance1',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'expenses',
+#         'USER': 'expenses',
+#         'PASSWORD': '1Petrov1',
+#         'HOST': 'db',
+#         'PORT': '5432',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
