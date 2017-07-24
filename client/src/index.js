@@ -1,7 +1,7 @@
 import './index.css';
 import React from 'react';
 import { RegisterForm, LoginForm,
-    ExpensesBox } from './App';
+    ExpensesBox, UsersBox } from './App';
 import ReactDOM from 'react-dom';
 import { Route} from 'react-router';
 import { BrowserRouter, Switch } from 'react-router-dom';
@@ -12,7 +12,7 @@ ReactDOM.render(
     <Route exact path='/'  component={LoginForm}/>
     <Route exact path='/registration/' component={RegisterForm}/>
     <Route exact path="/expenses/" component={ExpensesBox}/>
-
+    <Route exact path="/user_settings/" component={UsersBox} />
     </Switch>
     </BrowserRouter>,
     document.getElementById('Content')

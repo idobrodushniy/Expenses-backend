@@ -6,6 +6,7 @@ import jQuery from 'jquery';
 import { Link } from 'react-router-dom';
 import createFragment from 'react-addons-create-fragment';
 import './App.css'
+
 class LoginForm extends React.Component{
     constructor(){
         super();
@@ -277,9 +278,6 @@ class ExpenseComponent extends React.Component {
 
 
 
-
-
-
 class UniqueExpense extends React.Component{
     static propTypes = {
         isLoading: PropTypes.bool,
@@ -347,6 +345,8 @@ class UniqueExpense extends React.Component{
                     time: null,
                     isShowingModal: false})
                 console.log(data)
+                this.props.updating();
+
             },
             error: (xhr, status, error) => {
                 console.log(xhr, status, error)
@@ -376,17 +376,16 @@ class UniqueExpense extends React.Component{
                 <td style={{width:50}}  ><button className="ChangeExpenseButton" onClick={this.handleDeleteButton}>Delete</button></td>
             <span>
                 {
-                        this.state.isShowingModal &&
-                        <ModalContainer onClose={this.handleClose}>
-                            {
-                                isLoading ?
-                                <ReactSpinner/> :
-                                    <ModalDialog style={{backgroundColor: '#7d8aa0'}} onClose={this.handleClose}>
-                                        <ExpenseComponent data={this.props.data} history={this.props.history} />
-                                    </ModalDialog>
-                            }
-                        </ModalContainer>
-                    }
+                    this.state.isShowingModal &&
+                    <ModalContainer onClose={this.handleClose}>
+                        {
+                            isLoading ? <ReactSpinner/> :
+                                <ModalDialog style={{backgroundColor: '#7d8aa0'}} onClose={this.handleClose}>
+                                    <ExpenseComponent data={this.props.data} history={this.props.history} />
+                                </ModalDialog>
+                        }
+                    </ModalContainer>
+                }
             </span>
             </tr>
 
@@ -508,36 +507,38 @@ class ExpensesBox extends React.Component{
                     },
                     success: (data) => {
                         jQuery.ajax({
-                            crossDomain: true,
-                            xhrFields: {
-                                withCredentials: true
-                            },
-                            beforeSend: (xhr) => {
-                                xhr.setRequestHeader('X-CSRFToken', readCookie('csrftoken'));
-                            },
-                            url: '/expenses/',
-                            type: 'GET',
-                            headers: {
-                                Accept: "application/json; charset=utf-8"
-                            },
-                            success: (data) => {
-                                var expenses = data.map((el) => {
-                                    return createFragment(el)
-                                });
-                                this.setState({authorized:true,
-                                                isShowingModal:false,
-                                                expenseslist:expenses,
-                                                cost:null,
-                                                text:'',
-                                                date:null,
-                                                time:null,
-                                                owner:null
-                                            })
-                            },
-                            error: (xhr, status, error) => {
-                                console.log(xhr, status, error)
-                            }
-                        });
+                                crossDomain: true,
+                                xhrFields: {
+                                    withCredentials: true
+                                },
+                                beforeSend: (xhr) => {
+                                    xhr.setRequestHeader('X-CSRFToken', readCookie('csrftoken'));
+                                },
+                                url: '/expenses/',
+                                type: 'GET',
+                                headers: {
+                                    Accept: "application/json; charset=utf-8"
+                                },
+                                success: (data) => {
+                                    var expenses = data.map((el) => {
+                                        return createFragment(el)
+                                    });
+                                    console.log(expenses)
+                                    this.setState({authorized:true,
+                                        expenseslist:expenses,
+                                        cost:null,
+                                        text:'',
+                                        date:null,
+                                        time:null,
+                                        owner:null,
+                                        isShowingModal:false,
+                                    })
+                                },
+                                error: (xhr, status, error) => {
+                                    console.log(xhr, status, error)
+                                }
+                            });
+
                     },
                     error: (xhr, status, error) => {
                         console.log(xhr, status, error)
@@ -546,7 +547,6 @@ class ExpensesBox extends React.Component{
     }
 
     render(){
-        var i = 0;
         const {
             props: {
                 isLoading,
@@ -555,19 +555,21 @@ class ExpensesBox extends React.Component{
 
         return(
             <div>
-                <ul>
-                    <li>
-                        <Link to="/expenses/" >Expenses</Link>
-                    </li>
-                    <li>
-                        <Link onClick={this.handleClickLogout} to="#user_settings" >Users</Link>
-                    </li>
-                    <li onClick={this.handleClickLogout}>
-                        <Link id="LogoutButton" to="/" >
-                            Logout
-                        </Link>
-                    </li>
-                </ul>
+                <div id="menu">
+                    <ul>
+                        <li>
+                            <Link to="/expenses/" >Expenses</Link>
+                        </li>
+                        <li>
+                            <Link to="/user_settings" >Users</Link>
+                        </li>
+                        <li onClick={this.handleClickLogout}>
+                            <Link id="LogoutButton" to="/" >
+                                Logout
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
                 <div className="w3-display-topmiddle ExpensesBox ">
                     <table><tbody>
                     <tr>
@@ -581,9 +583,8 @@ class ExpensesBox extends React.Component{
                     </tr>
                     {
                         this.state.expenseslist.map( (el) => {
-                            i++;
                             return (
-                                <UniqueExpense onChange={this.componentDidMount} data={el} key={i} history={this.props.history} />
+                                <UniqueExpense onChange={this.componentDidMount} data={el} key={el[0]} updating={this.componentDidMount} history={this.props.history} />
                             );
                         })
                     }
@@ -614,10 +615,209 @@ class ExpensesBox extends React.Component{
     }
 }
 
+
+class UniqueUser extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            id:this.props.data[0],
+            username:this.props.data[1],
+            password1:'',
+            password2:'',
+            email:this.props.data[3]
+        }
+    }
+
+    handleClickChangeUserData = () => {
+        jQuery.ajax({
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-CSRFToken', readCookie('csrftoken'));
+            },
+            url: `/users/${this.state.id}/`,
+            type: 'PATCH',
+            data: {'username': this.state.username, 'email': this.state.email},
+            headers: {
+                Accept: "application/json; charset=utf-8"
+            },
+            success: (data) => {
+                console.log(data)
+            },
+            error: (xhr, status, error) => {
+                console.log(xhr, status, error)
+            }
+        });
+    }
+
+    handleClickChangePassword = () => {
+        if (this.state.password1 !== this.state.password2) {
+            alert('Passwords are not same!')
+        }
+        else if(this.state.password1.length < 5){
+            alert('Password length must be more than 5 characters!')
+        }
+        else{
+            jQuery.ajax({
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-CSRFToken', readCookie('csrftoken'));
+                },
+                url: `/users/${this.state.id}/`,
+                type: 'PATCH',
+                data: {'password':this.state.password1},
+                headers: {
+                    Accept: "application/json; charset=utf-8"
+                },
+                success: (data) => {
+                    console.log(data)
+                },
+                error: (xhr, status, error) => {
+                    console.log(xhr, status, error)
+                }
+            });
+            this.setState({password1:'', password2:''})
+        }
+    }
+
+    handleChangePassword1 = (event) => {
+        this.setState({password1:event.target.value})
+    }
+
+    handleChangePassword2 = (event) => {
+        this.setState({password2:event.target.value})
+    }
+
+    handleChangeUsername = (event) => {
+        this.setState({username:event.target.value})
+    }
+
+    handleChangeEmail = (event) => {
+        this.setState({email:event.target.value})
+    }
+    render = () => {
+        return (
+            <div>
+                <hr/>
+                <label className="labelInfo">Username: </label>
+                     <input onChange={this.handleChangeUsername} value={this.state.username} className=" UserFormInput" type ="text" /> <br/>
+                <label className="labelInfo" style={{ paddingRight:63}} >Email: </label>
+                     <input onChange={this.handleChangeEmail} value={this.state.email} className=" UserFormInput" type ="text" /><br/>
+                <button style={{marginLeft: 525, fontSize:30 }} onClick={this.handleClickChangeUserData} className="logandregbutton">Submit</button><br/>
+
+                <label style={{ paddingRight:3}}  className="labelInfo" >Password: </label>
+                    <input className=" UserFormInput" onChange={this.handleChangePassword1} placeholder="New Password" type ="password" value={this.state.password1} /><br/>
+                    <input style={{ marginLeft:150}}  onChange={this.handleChangePassword2} className=" UserFormInput" type ="password" placeholder="Repeat Password" value={this.state.password2} /><br/>
+                <button style={{marginLeft:525, fontSize:30}} onClick={this.handleClickChangePassword} className="logandregbutton">Change pass</button><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            </div>
+        )
+    }
+}
+
+class UsersBox extends React.Component{
+    handleClickLogout = (event) => {
+         jQuery.ajax({
+            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            beforeSend: (xhr) => {
+                xhr.setRequestHeader('X-CSRFToken', readCookie('csrftoken'));
+            },
+            url: '/auth/logout/',
+            type: 'POST',
+            headers: {
+                Accept: "application/json; charset=utf-8"
+            },
+            success: (data) => {
+                console.log(data)
+            },
+            error: (xhr, status, error) => {
+                console.log(xhr, status, error)
+            }
+        });
+    }
+
+    componentDidMount(){
+        jQuery.ajax({
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                beforeSend: (xhr) => {
+                    xhr.setRequestHeader('X-CSRFToken', readCookie('csrftoken'));
+                },
+                url: '/users/',
+                type: 'GET',
+                headers: {
+                    Accept: "application/json; charset=utf-8"
+                },
+                success: (data) => {
+                    var users = data.map((el) => {
+                        return createFragment(el)
+                    });
+                    this.setState({userslist:users})
+                    console.log(users)
+                },
+                error: (xhr, status, error) => {
+                    console.log(xhr, status, error)
+                }
+            });
+    }
+
+    constructor(){
+        super();
+        this.state = {
+            authorized:true,
+            userslist:[]
+        }
+    }
+
+    render = () => {
+        return (
+        <div>
+            <div id="menu">
+                <ul>
+                    <li>
+                        <Link to="/expenses/" >Expenses</Link>
+                    </li>
+                    <li>
+                        <Link to="/user_settings" >Users</Link>
+                    </li>
+                    <li onClick={this.handleClickLogout}>
+                        <Link id="LogoutButton" to="/" >
+                            Logout
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+            <div className="w3-display-topmiddle UsersBox">
+                {
+                    this.state.userslist.map((el) => {
+                        return (
+                            <UniqueUser data={el} key={el[0]} componentMounting={this.componentDidMount}/>
+                        )
+                    })
+
+                }
+            </div>
+        </div>
+
+
+    )}
+
+}
+
 export  {
     RegisterForm,
     LoginForm,
     ExpensesBox,
-    ExpenseComponent
+    ExpenseComponent,
+    UsersBox
 }
 

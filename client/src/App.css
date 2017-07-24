@@ -83,3 +83,95 @@ th {
   -webkit-transform: translate(0, 4px);
   transform: translate(0, 4px);
 }
+
+.UsersBox{
+  width:800px;
+  margin-top: 150px;
+}
+
+.labelInfo{
+    font-size: 30px;
+
+
+
+}
+.UserFormInput {
+    border: 5px solid white;
+    -webkit-box-shadow:
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1);
+    -moz-box-shadow:
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1);
+    box-shadow:
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1);
+    padding: 15px;
+    background: rgba(255,255,255,0.5);
+    margin: 0 0 10px 0;
+    font-size: 20px;
+}
+
+#menu {
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 50px;
+            background: #69c;
+
+            text-shadow:0 1px 1px black;
+           -moz-border-radius: 5px;
+            -webkit-border-radius:5px;
+            border-radius:5px;
+        }
+        #menu ul {
+            padding:0;
+            margin:0;
+        }
+        #menu li{
+            display: inline;
+            list-style:none;
+            margin: 5px 10px;
+        }
+
+        #menu li a {
+            padding:5px 10px;
+            color:#fff;
+            text-decoration: none;
+
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+
+        }
+
+        #menu li a:hover{
+            background: #36c;
+            color: #ff0;
+
+            -webkit-transition-property: color, background;
+            -webkit-transition-duration: 0.5s, 0.5s;
+        }
+        .default {
+            width:920px;
+        }
+        .fixed {
+            position:fixed;
+            top:-5px; left:0;
+            width:100%;
+            padding:10px 0;
+
+            -moz-box-shadow: 5px 5px 20px #333;
+            -webkit-box-shadow: 5px 5px 20px #333;
+            box-shadow: 5px 5px 20px #333;
+        }
+        .transbg {
+            background-color: rgba(60, 130, 190, 0.7)!important;
+        }
+#menu.default {
+    width:920px;
+}
+#menu.fixed {
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+}
