@@ -5,6 +5,7 @@ db:
     - POSTGRES_PASSWORD=1Petrov1
   volumes:
     - ./:/web
+
 django:
   image: adolgarev/python2:1473852567
   volumes:
@@ -19,3 +20,15 @@ django:
   environment:
     - DJANGO_SETTINGS_MODULE=expenses.settings
   command: /bin/bash -c "pip install -r requirements.txt && exec invoke run_dev"
+
+node:
+  image: node:8.1.2
+  volumes:
+    - ./:/web
+  links:
+    - django:django
+  expose:
+    - "3000"
+  ports:
+    - "3000:3000"
+  command: /bin/bash -c "cd /web/client/ && npm install && npm run build && npm run start"

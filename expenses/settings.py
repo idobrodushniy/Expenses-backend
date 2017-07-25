@@ -73,28 +73,29 @@ TEMPLATES = [
 WSGI_APPLICATION = 'expenses.wsgi.application'
 
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'expenses',
-        'USER': 'ilia',
-        'PASSWORD': '1Balance1',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
+#for Django-dev
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'expenses',
-#         'USER': 'expenses',
-#         'PASSWORD': '1Petrov1',
-#         'HOST': 'db',
-#         'PORT': '5432',
+#         'USER': 'ilia',
+#         'PASSWORD': '1Balance1',
+#         'HOST': 'localhost',
+#         'PORT': '',
 #     }
 # }
+
+#for Docker
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'expenses',
+        'USER': 'expenses',
+        'PASSWORD': '1Petrov1',
+        'HOST': 'db',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

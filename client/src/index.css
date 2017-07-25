@@ -1,116 +1,18 @@
-html{
+html {
     height: 100%;
 }
-body{
+
+body {
     width: 100%;
     height: 100%;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     background-image: url(background.jpg);
     background-attachment: fixed;
 
 }
-.logandregbutton {
-  -webkit-border-radius: 5;
-  -moz-border-radius: 5;
-  margin:15px 270px ;
-  border-radius: 5px;
-  font-family: Arial;
-  color: #141414;
-  font-size: 37px;
-  background: #e0e0e0;
-  padding: 10px 20px 10px 20px;
-  border: solid #ffffff 1px;
-  width: 250px;
-  text-decoration: none;
 
 
-}
-
-.logandregbutton:hover {
-  background: #ffffff;
-  text-decoration: none;
-}
-
-.logForm {
-
-    /*background: #393636;*/
-    width: 800px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    height:600px;
-}
-
-.regForm {
-    width: 800px;
-    height:600px;
-}
-
-.loginput {
-    border-width:2px;
-    border-color:#cccccc;
-    padding:16px;
-    font-size:26px;
-    border-style:double;
-    background-color:#ebe4eb;
-    border-radius:7px;
-    text-shadow:0px 0px 0px rgba(42,42,42,.75);
-    margin: 20px 220px;
-}
-
-.reginput {
-    border-width:2px;
-    border-color:#cccccc;
-    padding:16px;
-    font-size:26px;
-    border-style:double;
-    background-color:#ebe4eb;
-    border-radius:7px;
-    text-shadow:0px 0px 0px rgba(42,42,42,.75);
-    margin: 20px 220px;
-
-}
-
-.logandreginput {
-    outline:none;
-}
-
-#CreateButton{
-    margin-left:1090px;
-    margin-top:25px;
-
-}
-
-.GlassButton {
-  /*position: relative;*/
-  display: inline-block;
-  color: #777674;
-  font-weight: bold;
-  text-decoration: none;
-  text-shadow: rgba(255,255,255,.5) 1px 1px, rgba(100,100,100,.3) 3px 7px 3px;
-  user-select: none;
-  padding: 1em 2em;
-  outline: none;
-  border-radius: 3px / 100%;
-  background-image:
-   linear-gradient(45deg, rgba(255,255,255,.0) 30%, rgba(255,255,255,.8), rgba(255,255,255,.0) 70%),
-   linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 90%, rgba(255,255,255,.3)),
-   linear-gradient(to right, rgba(125,125,125,1), rgba(255,255,255,.9) 45%, rgba(125,125,125,.5)),
-   linear-gradient(to right, rgba(125,125,125,1), rgba(255,255,255,.9) 45%, rgba(125,125,125,.5)),
-   linear-gradient(to right, rgba(223,190,170,1), rgba(255,255,255,.9) 45%, rgba(223,190,170,.5)),
-   linear-gradient(to right, rgba(223,190,170,1), rgba(255,255,255,.9) 45%, rgba(223,190,170,.5));
-  background-repeat: no-repeat;
-  background-size: 200% 100%, auto, 100% 2px, 100% 2px, 100% 1px, 100% 1px;
-  background-position: 200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
-  box-shadow: rgba(0,0,0,.5) 3px 10px 10px -10px;
-}
-.GlassButton:hover {
-  transition: .5s linear;
-  background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
-}
-.GlassButton:active {
-  top: 1px;
-}
 
 
 

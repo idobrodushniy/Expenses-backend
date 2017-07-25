@@ -1,4 +1,112 @@
-ul  {
+.logandregbutton {
+    -webkit-border-radius: 5;
+    -moz-border-radius: 5;
+    margin: 15px 270px;
+    border-radius: 5px;
+    font-family: Arial;
+    color: #141414;
+    font-size: 37px;
+    background: #e0e0e0;
+    padding: 10px 20px 10px 20px;
+    border: solid #ffffff 1px;
+    width: 250px;
+    text-decoration: none;
+
+}
+
+.logandregbutton:hover {
+    background: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logForm {
+
+    /*background: #393636;*/
+    width: 800px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    height: 600px;
+}
+
+.regForm {
+    width: 800px;
+    height: 600px;
+}
+
+.loginput {
+    border-width: 2px;
+    border-color: #cccccc;
+    padding: 16px;
+    font-size: 26px;
+    border-style: double;
+    background-color: #ebe4eb;
+    border-radius: 7px;
+    text-shadow: 0px 0px 0px rgba(42, 42, 42, .75);
+    margin: 20px 220px;
+}
+
+.reginput {
+    border-width: 2px;
+    border-color: #cccccc;
+    padding: 16px;
+    font-size: 26px;
+    border-style: double;
+    background-color: #ebe4eb;
+    border-radius: 7px;
+    text-shadow: 0px 0px 0px rgba(42, 42, 42, .75);
+    margin: 20px 220px;
+
+}
+
+.logandreginput {
+    outline: none;
+}
+
+#CreateButton {
+    margin-left: 1090px;
+    margin-top: 25px;
+
+}
+
+.GlassButton {
+    /*position: relative;*/
+    display: inline-block;
+    color: #777674;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: rgba(255, 255, 255, .5) 1px 1px, rgba(100, 100, 100, .3) 3px 7px 3px;
+    user-select: none;
+    padding: 1em 2em;
+    outline: none;
+    border-radius: 3px / 100%;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .0) 30%, rgba(255, 255, 255, .8), rgba(255, 255, 255, .0) 70%),
+    linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 90%, rgba(255, 255, 255, .3)),
+    linear-gradient(to right, rgba(125, 125, 125, 1), rgba(255, 255, 255, .9) 45%, rgba(125, 125, 125, .5)),
+    linear-gradient(to right, rgba(125, 125, 125, 1), rgba(255, 255, 255, .9) 45%, rgba(125, 125, 125, .5)),
+    linear-gradient(to right, rgba(223, 190, 170, 1), rgba(255, 255, 255, .9) 45%, rgba(223, 190, 170, .5)),
+    linear-gradient(to right, rgba(223, 190, 170, 1), rgba(255, 255, 255, .9) 45%, rgba(223, 190, 170, .5));
+    background-repeat: no-repeat;
+    background-size: 200% 100%, auto, 100% 2px, 100% 2px, 100% 1px, 100% 1px;
+    background-position: 200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+    box-shadow: rgba(0, 0, 0, .5) 3px 10px 10px -10px;
+}
+
+.GlassButton:hover {
+    transition: .5s linear;
+    background-position: -200% 0, 0 0, 0 0, 0 100%, 0 4px, 0 calc(100% - 4px);
+    cursor: pointer;
+}
+
+.GlassButton:active {
+    top: 1px;
+}
+
+.hidden {
+    display: none;
+}
+
+ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -7,10 +115,9 @@ ul  {
     background-color: #f3f3f3;
 }
 
-li  {
+li {
     float: left;
 }
-
 
 li a {
     display: block;
@@ -22,16 +129,19 @@ li a {
 
 li a:hover:not(.active) {
     background-color: #ddd;
+    cursor: pointer;
 }
 
 li a.active {
-  color: white;
-  background-color: #4c7aaf;
+    color: white;
+    background-color: #4c7aaf;
 }
-.ExpensesBox{
-  width:1200px;
-  margin-top: 100px;
+
+.ExpensesBox {
+    width: 1200px;
+    margin-top: 100px;
 }
+
 table {
     border-collapse: collapse;
     width: 100%;
@@ -42,136 +152,167 @@ th, td {
     padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
-tr{
-    background-color:#c6d0d1 ;
+tr:nth-child(even) {
+    background-color: #f2f2f2
 }
+
+tr {
+    background-color: #c6d0d1;
+}
+
 th {
     background-color: #45757a;
     color: white;
 }
 
 .ChangeExpenseButton {
-  display: inline-block;
-  font-weight: bold;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 -1px rgba(0,0,0,.5);
-  user-select: none;
-  padding: .4em 1.5em;
-  border: 1px solid rgb(80,32,0);
-  border-radius: 5px;
-  outline: none;
-  background: rgb(147,80,36) linear-gradient(rgb(106,58,26), rgb(147,80,36) 80%);
-  box-shadow:
-   0 6px rgb(86,38,6),
-   0 3px 15px rgba(0,0,0,.4),
-   inset 0 1px rgba(255,255,255,.3),
-   inset 0 0 3px rgba(255,255,255,.5);
-  transition: .2s;
+    display: inline-block;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px rgba(0, 0, 0, .5);
+    user-select: none;
+    padding: .4em 1.5em;
+    border: 1px solid rgb(80, 32, 0);
+    border-radius: 5px;
+    outline: none;
+    background: rgb(147, 80, 36) linear-gradient(rgb(106, 58, 26), rgb(147, 80, 36) 80%);
+    box-shadow: 0 6px rgb(86, 38, 6),
+    0 3px 15px rgba(0, 0, 0, .4),
+    inset 0 1px rgba(255, 255, 255, .3),
+    inset 0 0 3px rgba(255, 255, 255, .5);
+    transition: .2s;
 }
+
 .ChangeExpenseButton:hover {
-  background: rgb(167,91,41) linear-gradient(rgb(126,69,31), rgb(167,91,41) 80%);
+    background: rgb(167, 91, 41) linear-gradient(rgb(126, 69, 31), rgb(167, 91, 41) 80%);
+    cursor: pointer;
 }
+
 .ChangeExpenseButton:active {
-  background: rgb(120,63,25) linear-gradient(rgb(120,63,25) 20%, rgb(167,91,41));
-  box-shadow:
-   0 2px rgb(86,38,6),
-   0 1px 6px rgba(0,0,0,.4),
-   inset 0 1px rgba(255,255,255,.3),
-   inset 0 0 3px rgba(255,255,255,.5);
-  -webkit-transform: translate(0, 4px);
-  transform: translate(0, 4px);
+    background: rgb(120, 63, 25) linear-gradient(rgb(120, 63, 25) 20%, rgb(167, 91, 41));
+    box-shadow: 0 2px rgb(86, 38, 6),
+    0 1px 6px rgba(0, 0, 0, .4),
+    inset 0 1px rgba(255, 255, 255, .3),
+    inset 0 0 3px rgba(255, 255, 255, .5);
+    -webkit-transform: translate(0, 4px);
+    transform: translate(0, 4px);
 }
 
-.UsersBox{
-  width:800px;
-  margin-top: 150px;
+.UsersBox {
+    width: 800px;
+    margin-top: 150px;
 }
 
-.labelInfo{
+.labelInfo {
     font-size: 30px;
-
-
-
 }
+
 .UserFormInput {
     border: 5px solid white;
-    -webkit-box-shadow:
-      inset 0 0 8px  rgba(0,0,0,0.1),
-            0 0 16px rgba(0,0,0,0.1);
-    -moz-box-shadow:
-      inset 0 0 8px  rgba(0,0,0,0.1),
-            0 0 16px rgba(0,0,0,0.1);
-    box-shadow:
-      inset 0 0 8px  rgba(0,0,0,0.1),
-            0 0 16px rgba(0,0,0,0.1);
+    -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1),
+    0 0 16px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1),
+    0 0 16px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1),
+    0 0 16px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
     margin: 0 0 10px 0;
     font-size: 20px;
 }
 
 #menu {
-            text-transform: uppercase;
-            text-align: center;
-            line-height: 50px;
-            background: #69c;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 50px;
+    background: #69c;
 
-            text-shadow:0 1px 1px black;
-           -moz-border-radius: 5px;
-            -webkit-border-radius:5px;
-            border-radius:5px;
-        }
-        #menu ul {
-            padding:0;
-            margin:0;
-        }
-        #menu li{
-            display: inline;
-            list-style:none;
-            margin: 5px 10px;
-        }
+    text-shadow: 0 1px 1px black;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
 
-        #menu li a {
-            padding:5px 10px;
-            color:#fff;
-            text-decoration: none;
+#menu ul {
+    padding: 0;
+    margin: 0;
+}
 
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
+#menu li {
+    display: inline;
+    list-style: none;
+    margin: 5px 10px;
+}
 
-        }
+#menu li a {
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
 
-        #menu li a:hover{
-            background: #36c;
-            color: #ff0;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 
-            -webkit-transition-property: color, background;
-            -webkit-transition-duration: 0.5s, 0.5s;
-        }
-        .default {
-            width:920px;
-        }
-        .fixed {
-            position:fixed;
-            top:-5px; left:0;
-            width:100%;
-            padding:10px 0;
+}
 
-            -moz-box-shadow: 5px 5px 20px #333;
-            -webkit-box-shadow: 5px 5px 20px #333;
-            box-shadow: 5px 5px 20px #333;
-        }
-        .transbg {
-            background-color: rgba(60, 130, 190, 0.7)!important;
-        }
+#menu li a:hover {
+    background: #36c;
+    color: #ff0;
+
+    -webkit-transition-property: color, background;
+    -webkit-transition-duration: 0.5s, 0.5s;
+    cursor: pointer;
+}
+
+.default {
+    width: 920px;
+}
+
+.fixed {
+    position: fixed;
+    top: -5px;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+
+    -moz-box-shadow: 5px 5px 20px #333;
+    -webkit-box-shadow: 5px 5px 20px #333;
+    box-shadow: 5px 5px 20px #333;
+}
+
+.transbg {
+    background-color: rgba(60, 130, 190, 0.7) !important;
+}
+
 #menu.default {
-    width:920px;
+    width: 920px;
 }
+
 #menu.fixed {
-    position:fixed;
-    top:0; left:0;
-    width:100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
+
+.TabButton {
+    display: inline-block;
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .5em 2em;
+    outline: none;
+    border: 2px solid;
+    border-radius: 1px;
+    transition: 0.2s;
+}
+
+.TabButton:hover {
+    background: blue;
+    color: yellow;
+    cursor: pointer;
+}
+
+/*.TabButton:active { background: blue; }*/
