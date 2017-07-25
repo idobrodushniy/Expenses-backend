@@ -1,28 +1,26 @@
-To start the project you must have python3 and  postgres on your computer:
+# Expenses
 
-1.Install important packages via command :
-```
-pip3 install requirements.txt
-```
-2.Create database and user in postgres, which is described in database.txt file\
+An application for tracking of user's expenses
 
-3.Make migrations :
+* User is able to create an account and log in
+* When logged in, user can see a list of his expenses: what money is spent for and how much, - also he is able to edit and delete them
+* Each entry has a date, time, text, and cost
+* Filter by text, dates from-to, time from-to
+
+
+Groups:
+
+* Native User (can CRUD their own records)
+* Manager(can CRUD users, except their groups)
+* Admin (can CRUD all records and users)
+
+Users:
+
+* admin/1Petrov1
+
+Use admin to create other users.
+To start the project you need to have docker-compose and python. You can start it via command :
 ```
-python manage.py makemigrations
+  docker-compose up
 ```
-4.Migration:
-```
-python manage.py migrate 
-```
-5.To initialize database IMPORTANT data:
-```
-python manage.py loaddata groups.json
-```
-6.Create superuser:
-```
-python manage.py createsuperuser
-```
-7.Start the project via command:
-```
-python manage.py runserver
-```
+Project starts on localhost:3000/
