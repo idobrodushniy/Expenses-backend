@@ -27,7 +27,7 @@ services:
       DB_PASSWORD: 'expenses_pass'
       DB_HOST: 'expenses-db'
       DB_PORT: '5432'
-    command: /bin/bash -c "uwsgi --ini uwsgi_dev.ini"
+    command: /bin/bash -c "exec invoke run_dev"
 
 volumes:
   db-volume:
