@@ -16,8 +16,6 @@ services:
   django:
     image: idobrodushniy/expenses-image:stable
     container_name: django
-    volumes:
-      - ./:/opt/project
     ports:
       - "9000:9000"
     depends_on:
