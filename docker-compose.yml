@@ -29,7 +29,7 @@ services:
       DB_PASSWORD: 'expenses_pass'
       DB_HOST: 'expenses-db'
       DB_PORT: '5432'
-    command: /bin/bash -c "exec invoke run_dev"
+    command: /bin/bash -c "ls && exec invoke run_dev"
 
 volumes:
   db-volume:
