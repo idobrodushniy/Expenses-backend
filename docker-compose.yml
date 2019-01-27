@@ -1,20 +1,33 @@
-db:
-  image: postgres:9.6
-  environment:
-    - POSTGRES_USER=expenses
-    - POSTGRES_PASSWORD=expenses_pass
-  volumes:
-    - ./:/web
-django:
-  image: adolgarev/python2:1473852567
-  volumes:
-    - ./:/web
-  links:
-    - db:db
-  expose:
-    - "9000"
-  ports:
-    - "9000:9000"
-  environment:
-    - DJANGO_SETTINGS_MODULE=expenses.settings
-  command: /bin/bash -c "cd /web && pip install -r requirements.txt && exec invoke run_dev"
+version: '3.4'
+
+services:
+  expenses-db:
+    image: postgres:9.6.6-alpine
+    container_name: expenses-db
+    environment:
+      - POSTGRES_DB=expenses
+      - POSTGRES_USER=expenses
+      - POSTGRES_PASSWORD=expenses_pass
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  django:
+    image: idobrodushniy/expenses-image:stable
+    container_name: django
+    ports:
+      - "9000:9000"
+    depends_on:
+      - expenses-db
+    environment:
+      DJANGO_SETTINGS_MODULE: 'expenses.settings'
+      DB_NAME: 'expenses'
+      DB_USER: 'expenses'
+      DB_PASSWORD: 'expenses_pass'
+      DB_HOST: 'expenses-db'
+      DB_PORT: '5432'
+    command: /bin/bash -c "exec invoke run_dev"
+
+volumes:
+  db-volume:

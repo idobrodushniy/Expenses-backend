@@ -15,13 +15,12 @@ def wait_port_is_open(host, port):
 
 @task
 def reset_db(ctx):
-    wait_port_is_open('db', 5432)
+    wait_port_is_open('expenses-db', 5432)
     ctx.run('python manage.py dbshell < clear.sql')
     ctx.run('python manage.py dbshell < dump.sql')
     ctx.run('python manage.py migrate --noinput')
-    ctx.run('python manage.py collectstatic --noinput')
-
 @task
 def run_dev(ctx):
     reset_db(ctx)
+    ctx.run('python manage.py collectstatic --noinput')
     ctx.run('uwsgi --ini uwsgi_dev.ini')
