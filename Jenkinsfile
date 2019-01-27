@@ -8,15 +8,30 @@ pipeline {
                 sh 'docker build -t idobrodushniy/expenses-image:stable .'
             }
         }
-        stage('Test') {
+        stage('Prepare environment for tests') {
             steps {
-                sh 'docker-copose up'
+                sh 'docker-compose up -d '
             }
         }
-        stage('Deploy') {
+        stage('Test Django') {
             steps {
-                echo 'Deploying....'
+                script {
+                    try {
+                        sh 'set +e'
+                        sh 'docker-compose exec -T django python manage.py test'
+                        sh 'set -e'
+                    }
+                    catch(Exception e) {
+                        currentBuild.result = 'FAILURE'
+                    }
+                }
             }
         }
+    }
+    post {
+        cleanup {
+          sh 'docker-compose down'
+        }
+
     }
 }
